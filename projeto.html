@@ -1,35 +1,382 @@
 <!DOCTYPE html>
-<html lang="pt-br">
+<html lang="pt-BR">
 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Projeto Dark Mode</title>
-    <link rel="shortcut icon" href="/assets/darkmod.png.png" type="image/x-icon">
-    <link rel="stylesheet"
-        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Rounded:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200&display=swap" />
-    <link rel="stylesheet" href="/colorToggler/assets/css/darkMode_style.css">
+    <title>MAGNETO: Mestre do Magnetismo</title>
+    <link rel="shortcut icon" href="/assets/magneto-pesadelo.png" type="image/x-icon">
+    <!-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"> -->
+    <style>
+        :root {
+            --background-color: #f0f0f0;
+            --text-color: #333;
+            --header-bg: #808080;
+            --header-text: #fff;
+            --nav-bg: #b3b3b3;
+            --nav-text: #fff;
+            --footer-bg: #808080;
+            --footer-text: #fff;
+            --section-bg: #d4d4d4;
+            --button-bg: #3d3d3d;
+            --button-text: #dbdbdb;
+            --link-color: #007bff;
+        }
 
-    <!-- <style></style> -->
+        body.dark-mode {
+            --background-color: #1d1d1d;
+            --text-color: #c9c9c9;
+            --header-bg: #c9c9c9;
+            --header-text: #1f1f1f;
+            --nav-bg: #464646;
+            --nav-text: #f0f0f0;
+            --footer-bg: #222;
+            --footer-text: #f0f0f0;
+            --section-bg: #2b2b2b;
+            --button-bg: #f0f0f0;
+            --button-text: #3d3d3d;
+            --link-color: #d8d8d8;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--background-color);
+            color: var(--text-color);
+            transition: background-color 0.5s, color 0.5s;
+        }
+
+        header {
+            background-color: var(--header-bg);
+            color: var(--header-text);
+            padding: 20px 0;
+            text-align: center;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            box-shadow: 0 2px 5px #00000033;
+        }
+
+        header h1 {
+            margin: 0;
+            font-size: 2.5em;
+        }
+
+        nav {
+            background-color: var(--nav-bg);
+            padding: 10px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px #00000033;
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+        }
+
+        nav ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        nav ul li {
+            margin: 0 15px;
+        }
+
+        nav ul li a {
+            color: var(--nav-text);
+            text-decoration: none;
+            font-weight: bold;
+            padding: 5px 10px;
+            border-radius: 5px;
+            transition: background-color 0.3s;
+        }
+
+        nav ul li a:hover {
+            background-color: #ffffff33;
+        }
+
+        .dark-mode-button {
+            background-color: var(--button-bg);
+            color: var(--button-text);
+            border: none;
+            padding: 8px 12px;
+            border-radius: 20px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1em;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        .dark-mode-button i {
+            margin-right: 5px;
+        }
+
+        .dark-mode-button:hover {
+            opacity: 0.8;
+        }
+
+        section {
+            background-color: var(--section-bg);
+            margin: 20px auto;
+            padding: 30px;
+            max-width: 900px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px #0000001a;
+            line-height: 1.6;
+            font-size: 1.1em;
+            text-align: justify;
+            text-transform: lowercase;
+            /* Alterado para minúsculas */
+        }
+
+        section h2 {
+            color: var(--header-bg);
+            /* Mantém a cor original para destaque */
+            text-transform: capitalize;
+            margin-top: 0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+            border-bottom: 2px solid var(--header-bg);
+            padding-bottom: 10px;
+        }
+
+        section p {
+            margin-bottom: 15px;
+        }
+
+        section ul {
+            list-style-type: disc;
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        section ul li {
+            margin-bottom: 8px;
+        }
+
+        a {
+            color: var(--link-color);
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        footer {
+            background-color: var(--footer-bg);
+            color: var(--footer-text);
+            text-align: center;
+            padding: 20px 0;
+            margin-top: 30px;
+            box-shadow: 0 -2px 5px #00000033;
+        }
+    </style>
 </head>
 
 <body>
-    <div>
-        <h1>Dark Mode</h1>
-        <p>Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Laboriosam quidem explicabo facilis et molestiae eos
-            ratione magni aperiam similique quae? Dolores ad ea,
-            est dolorem error aut vel necessitatibus eos. Lorem ipsum dolor sit amet consectetur, adipisicing elit.
-            Excepturi debitis illo vero vel, harum architecto
-            maxime soluta sequi assumenda optio atque, adipisci blanditiis repudiandae eos asperiores dolor aspernatur
-            corporis officia.</p>
 
-        <button id="btn-dark-mode"></button>
-    </div>
+    <header>
+        <h1>MAGNETO: MESTRE DO MAGNETISMO</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#introducao">Introdução</a></li>
+            <li><a href="#historia">História</a></li>
+            <li><a href="#poderes">Poderes & Habilidades</a></li>
+            <li><a href="#magnetismo">O Magnetismo</a></li>
+            <li><a href="#curiosidades">Curiosidades</a></li>
+            <li>
+                <button class="dark-mode-button" id="darkModeToggle">
+                    <i class="fas fa-moon"></i> Dark Mode
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <section id="introducao">
+        <h2>INTRODUÇÃO</h2>
+        <p> Erik Magnus Lehnsherr, mais conhecido como "Magneto" ou "Mestre do Magnitismo", ( Magnus para os mais
+            íntimos) é um dos personagens mais complexos e icônicos do 'Universo Marvel'. Criado por Stan Lee e Jack
+            Kirby, sua primeira aparição foi em <b>"X-Men" #1</b>, em setembro de 1963. Magneto é um mutante com a
+            incrível habilidade de controlar campos magnéticos, o que lhe confere um poder quase ilimitado sobre metais
+            e energia eletromagnética. Ele é frequentemente retratado como um vilão, um anti-herói e, em certas fases,
+            até um aliado relutante dos X-Men, representando a luta por direitos e sobrevivência dos mutantes de uma
+            forma mais radical e confrontadora do que a filosofia de coexistência pacífica de Charles Xavier.</p>
+        <p> A complexidade de sua personalidade e motivações o torna um dos personagens mais debatidos das HQ's,
+            levantando questões sobre justiça, vingança e o caminho para a paz em meio à opressão.</p>
+    </section>
+
+    <section id="História">
+        <h2> História do início ao fim</h2>
+        <h3> Origens e a tragédia do holocausto</h3>
+        <p> O verdadeiro nome de Magneto é 'Max Eisenhardt'. Ele nasceu em uma família judaica na alemanha no final da
+            década de 1920. Sua infância foi marcada pela ascensão do nazismo e pelo terror do holocausto. Max e sua
+            família foram enviados para o campo de concentração de auschwitz, onde testemunhou a morte de seus entes
+            queridos e sofreu horrores indizíveis. Essa experiência traumática, que o transformou em um sobrevivente de
+            genocídio, moldou profundamente sua visão de mundo e sua desconfiança na humanidade. Ele viu em primeira mão
+            o que a intolerância pode fazer e jurou que os mutantes, uma minoria oprimida, nunca sofreriam o mesmo
+            destino que seu povo.</p>
+        <!-- <LINk:favicon><img src="/assets/magneto1.png" alt=""></LINk:favicon> -->
+                <img src="/assets/magneto1.png" alt="">
+
+
+        <h3> A amizade com Charles Xavier</h3>
+        <p> Após a guerra, Max, agora conhecido como 'Erik Magnus Lehnsherr', tentou levar uma vida normal. Foi nessa
+            época que ele conheceu: Charles Xavier, um telepata brilhante e também mutante. Eles se tornaram grandes
+            amigos, compartilhando a visão de um futuro onde mutantes e humanos poderiam coexistir. No entanto, suas
+            filosofias divergiam fundamentalmente: Xavier acreditava na integração pacífica e na educação, enquanto
+            Magneto, endurecido por seu passado, defendia a supremacia mutante como a única forma de garantir a
+            sobrevivência de sua espécie, temendo que os humanos sempre se voltassem contra eles.</p>
+        <LINk:favicon><img src="/assets/professor_xavier_e_magneto.png" alt=""></LINk:favicon>
+        <h3> O nascimento do "vilão" e suas motivações</h3>
+        <p> A ruptura definitiva entre Magneto e Xavier ocorreu quando testemunharam a perseguição a mutantes por parte
+            de humanos. Para Magneto, isso confirmou seus piores medos. ele adotou a identidade de: Magneto, o mestre do
+            magnetismo, e formou a "Irmandade de Mutantes", um grupo de mutantes dispostos a lutar por seus direitos com
+            a força, se necessário. Suas motivações não eram puramente maléficas; ele via suas ações como atos de
+            legítima defesa e um esforço para proteger sua espécie de um extermínio iminente. Ele acredita que, para os
+            mutantes sobreviverem, eles precisam dominar o mundo e impor sua vontade sobre a humanidade, que ele
+            considera inferior e perigosa.</p>
+        <LINk:favicon><img src="/assets/nova-irmandade-demutantes-capa.png" alt=""></LINk:favicon>
+        <h3> Relações e o conceito de anti-herói</h3>
+        <p> Ao longo de sua história, Magneto teve relações complexas com diversos personagens. Sua rivalidade com
+            Xavier
+            é o cerne de sua existência, uma disputa ideológica que transcende o bem e o mal. Ele também teve filhos,
+            como: Mercúrio (Pietro Maximoff) e a Feiticeira Escarlate (Wanda Maximoff), embora essa relação tenha sido
+            por vezes ambígua nas hqs. Apesar de suas ações muitas vezes violentas, magneto é frequentemente retratado
+            como um Anti-Herói, um personagem que age com métodos questionáveis para alcançar um objetivo que, em sua
+            mente, é justo. Sua luta por uma minoria oprimida ressoa com muitas questões do mundo real sobre
+            discriminação e justiça social.</p>
+            <LINk:favicon><img src="/assets/magnuswanda.png" alt=""></LINk:favicon>
+    </section>
+
+    <section id="Poderes">
+        <h2>Poderes e Habilidades</h2>
+        <p> Magneto é um mutante de nível ômega, um dos mais poderosos do Universo Marvel. Seus poderes derivam da sua
+            capacidade de manipular campos eletromagnéticos, permitindo-lhe:</p>
+        <ul>
+            <li> Controle sobre o metal: ele pode manipular qualquer tipo de metal, seja ferro, aço, titânio, ou até
+                mesmo os vestígios de metal no sangue (como o ferro na hemoglobina), o que lhe permite controlar
+                pessoas.</li>
+            <li> Voo: ao manipular o campo magnético da terra ou criar seus próprios campos, ele pode voar a grandes
+                velocidades.</li>
+            <li> Geração de campos de força: Pode criar campos de força impenetráveis para se proteger ou a outros de
+                ataques físicos e energéticos.</li>
+            <li> Rajadas eletromagnéticas: Capaz de disparar poderosas rajadas de energia magnética.</li>
+            <li> Manipulação do espectro eletromagnético: Seus poderes se estendem a outras formas de energia
+                eletromagnética, como eletricidade, luz visível e ondas de rádio, embora em menor grau que o magnetismo
+                puro.</li>
+            <li> Percepção eletromagnética: Pode detectar e sentir o campo eletromagnético da terra e outras fontes de
+                energia.</li>
+            <li>Reparos complexos: Com seu controle preciso, ele pode desmontar e remontar máquinas complexas.</li>
+        </ul>
+        <p>Além de seus poderes, magneto é um estrategista brilhante, um líder carismático e um pensador filosófico, o
+            que o torna um adversário formidável.</p>
+            <LINk:favicon><img src="/assets/X-Men-97.png" alt=""></LINk:favicon>
+    </section>
+
+    <section id="Magnetismo">
+        <h2>O conceito de magnetismo e ciência magnética</h2>
+        <p>OIU CU O poder de magneto é fundamentado no conceito científico do 'Magnetismo', uma das quatro forças
+            fundamentais
+            da natureza (as outras são a gravidade, a força nuclear forte e a força nuclear fraca). O magnetismo é o
+            fenômeno pelo qual materiais exercem força atrativa ou repulsiva sobre outros materiais ou correntes
+            elétricas. Essa força é mediada por campos magnéticos, que são gerados por cargas elétricas em movimento.
+        </p>
+        <p>Na 'Ciência Magnética', estudamos as propriedades dos materiais magnéticos, como ferromagnetismo (Materiais
+            como ferro, níquel e cobalto que podem ser permanentemente magnetizados), paramagnetismo e diamagnetismo. A
+            física do magnetismo está intrinsecamente ligada à eletricidade, formando o campo do **eletromagnetismo**,
+            que é a base para inúmeras tecnologias modernas, desde motores elétricos e geradores até ressonância
+            magnética (mri) e gravação de dados em discos rígidos.</p>
+        <p>Magneto, em um nível ficcional, tem a capacidade de manipular essas forças fundamentais, o que o torna um dos
+            seres mais poderosos em seu universo, pois o magnetismo permeia tudo, desde o núcleo da terra até os campos
+            gravitacionais de galáxias distantes.</p>
+    </section>
+
+ <style>
+  .container {
+    display: flex;
+    justify-content: center; /* Centraliza horizontalmente */
+    align-items: center; /* Centraliza verticalmente (se o container tiver uma altura definida) */
+    min-height: 100vh; /* Garante que o container ocupe pelo menos a altura da viewport */
+  }
+
+  .minha-imagem {
+    max-width: 100%; /* Define a largura máxima da imagem para 50% do container (ajuste conforme necessário) */
+    height: auto; /* Mantém a proporção da imagem */
+  }
+</style>
+
+<div class="container">
+  <img src="/assets/campo-geomagnetico.png" alt="" class="minha-imagem">
+</div>
+
+</div>
+    <section id="Curiosidades">
+        <h2>Curiosidades gerais sobre Magneto</h2>
+        <ul>
+            <li>Nome completo: Erik Magnus Lehnsherr (Anteriormente Max Eisenhardt).</li>
+            <li>Idade: a idade exata é difícil de determinar devido à sua história no holocausto e à "suspensão" da
+                idade em quadrinhos, mas ele é retratado como um homem de meia-idade ou mais velho.</li>
+            <li>Família: teve filhos como pietro maximoff (mercúrio) e wanda maximoff (feiticeira escarlate). também
+                possui uma filha chamada polaris (lorna dane).</li>
+            <li>Ocupação: ativista mutante, líder, terrorista (em certas fases), diretor de escola (ocasionalmente).
+            </li>
+            <li>Tipo de personagem:** vilão, anti-herói, líder mutante.</li>
+            <li>Aparência: cabelos grisalhos, físico atlético, e icônico capacete vermelho (que o protege de ataques
+                telepáticos).</li>
+            <li>Espécie: mutante (homo superior).</li>
+            <li>Nível de poder: mutante ômega.</li>
+            <li>Empresa responsável: Marvel Comics.</li>
+            <li>Década da estreia: década de 1960 (Setembro de 1963).</li>
+            <li>O que ele representa: no mundo fictício, ele representa o lado mais radical da luta mutante por
+                direitos. no mundo real, ele é frequentemente visto como uma alegoria para as minorias oprimidas, a luta
+                contra o preconceito e a discussão sobre os métodos para alcançar a justiça. suas ações como vilão,
+                embora brutais, são impulsionadas por um desejo de proteger seu povo, o que o torna um personagem com
+                profundidade moral ambígua.</li>
+        </ul>
+        <LINk:favicon><img src="/assets/magneto-pesadelo.png" alt=""></LINk:favicon>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 Página sobre Magneto. Todos os direitos reservados. Informações baseadas em Marvel Comics.</p>
+    </footer>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            const body = document.body;
+
+            darkModeToggle.addEventListener('click', () => {
+                body.classList.toggle('dark-mode');
+                const isDarkMode = body.classList.contains('dark-mode');
+                localStorage.setItem('darkMode', isDarkMode);
+
+                // Troca o ícone da lua para o sol quando em dark mode
+                if (isDarkMode) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> light mode';
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> dark mode';
+                }
+            });
+
+            // Verifica a preferência do usuário ao carregar a página
+            const savedDarkMode = localStorage.getItem('darkMode');
+            if (savedDarkMode === 'true') {
+                body.classList.add('dark-mode');
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> light mode';
+            } else {
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> dark mode';
+            }
+        });
+    </script>
 
 </body>
-
-<!-- <script></script> -->
-<script src="/colorToggler/assets/js/darkMode_script.js"></script>
 
 </html>
