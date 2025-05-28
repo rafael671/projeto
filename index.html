@@ -1,0 +1,524 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MAGNETO: Mestre do Magnetismo</title>
+    <link rel="shortcut icon" href="./assets/magneto-pesadelo.png" type="image/x-icon">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /*
+        Este bloco define as variáveis CSS para cores e estilos,
+        que são usadas para aplicar temas (claro e escuro) à página.
+        As variáveis começam com '--' e podem ser acessadas usando 'var()'.
+        */
+        :root {
+            /* Cores para o tema claro (padrão) */
+            --background-color: #f0f0f0;
+            --text-color: #333;
+            --header-bg: #808080;
+            --header-text: #fff;
+            --nav-bg: #b3b3b3;
+            --nav-text: #fff;
+            --footer-bg: #808080;
+            --footer-text: #fff;
+            --section-bg: #d4d4d4;
+            --button-bg: #3d3d3d;
+            --button-text: #dbdbdb;
+            --link-color: #007bff;
+        }
+
+        body.dark-mode {
+            /* Cores para o tema escuro, aplicadas quando a classe 'dark-mode' é adicionada ao <body> */
+            --background-color: #1d1d1d;
+            --text-color: #c9c9c9;
+            --header-bg: #c9c9c9;
+            --header-text: #1f1f1f;
+            --nav-bg: #464646;
+            --nav-text: #f0f0f0;
+            --footer-bg: #222;
+            --footer-text: #f0f0f0;
+            --section-bg: #2b2b2b;
+            --button-bg: #f0f0f0;
+            --button-text: #3d3d3d;
+            --link-color: #d8d8d8;
+        }
+
+        body {
+            /* Estilos globais para o corpo da página */
+            font-family: 'Arial', sans-serif;
+            /* Define a fonte do texto. */
+            margin: 0;
+            /* Remove margens padrão do corpo. */
+            padding: 0;
+            /* Remove preenchimento padrão do corpo. */
+            background-color: var(--background-color);
+            /* Define a cor de fundo usando a variável CSS. */
+            color: var(--text-color);
+            /* Define a cor do texto usando a variável CSS. */
+            transition: background-color 0.5s, color 0.5s;
+            /* Adiciona uma transição suave para as mudanças de cor de fundo e texto (usado no dark mode). */
+        }
+
+        header {
+            /* Estilos para o cabeçalho da página (onde fica o título principal) */
+            background-color: var(--header-bg);
+            /* Cor de fundo do cabeçalho. */
+            color: var(--header-text);
+            /* Cor do texto do cabeçalho. */
+            padding: 20px 0;
+            /* Preenchimento interno superior e inferior. */
+            text-align: center;
+            /* Alinha o texto ao centro. */
+            text-transform: uppercase;
+            /* Transforma o texto em maiúsculas. */
+            letter-spacing: 2px;
+            /* Espaçamento entre as letras. */
+            box-shadow: 0 2px 5px #00000033;
+            /* Adiciona uma sombra suave na parte inferior do cabeçalho. */
+        }
+
+        header h1 {
+            /* Estilos para o título H1 dentro do cabeçalho */
+            margin: 0;
+            /* Remove margens padrão do H1. */
+            font-size: 2.5em;
+            /* Define o tamanho da fonte. */
+        }
+
+        nav {
+            /* Estilos para a barra de navegação */
+            background-color: var(--nav-bg);
+            /* Cor de fundo da navegação. */
+            padding: 10px 0;
+            /* Preenchimento interno superior e inferior. */
+            text-align: center;
+            /* Alinha o texto ao centro. */
+            box-shadow: 0 2px 5px #00000033;
+            /* Adiciona uma sombra suave na parte inferior da navegação. */
+            position: sticky;
+            /* Torna a navegação "grudenta" (sticky). */
+            top: 0;
+            /* Fixa a navegação no topo da tela ao rolar. */
+            z-index: 1000;
+            /* Garante que a navegação fique acima de outros elementos. */
+        }
+
+        nav ul {
+            /* Estilos para a lista não ordenada dentro da navegação */
+            list-style: none;
+            /* Remove os marcadores de lista. */
+            padding: 0;
+            /* Remove o preenchimento padrão da lista. */
+            margin: 0;
+            /* Remove as margens padrão da lista. */
+            display: flex;
+            /* Usa Flexbox para organizar os itens da lista. */
+            justify-content: center;
+            /* Centraliza os itens horizontalmente. */
+            align-items: center;
+            /* Centraliza os itens verticalmente. */
+        }
+
+        nav ul li {
+            /* Estilos para cada item da lista (link) na navegação */
+            margin: 0 15px;
+            /* Margem horizontal entre os itens. */
+        }
+
+        nav ul li a {
+            /* Estilos para os links dentro dos itens da navegação */
+            color: var(--nav-text);
+            /* Cor do texto do link. */
+            text-decoration: none;
+            /* Remove o sublinhado padrão dos links. */
+            font-weight: bold;
+            /* Torna o texto em negrito. */
+            padding: 5px 10px;
+            /* Preenchimento interno do link. */
+            border-radius: 5px;
+            /* Borda arredondada. */
+            transition: background-color 0.3s;
+            /* Transição suave para a cor de fundo ao passar o mouse. */
+        }
+
+        nav ul li a:hover {
+            /* Estilos para os links da navegação quando o mouse passa por cima */
+            background-color: #ffffff33;
+            /* Adiciona um leve fundo branco transparente. */
+        }
+
+        .dark-mode-button {
+            /* Estilos para o botão de alternar Dark Mode */
+            background-color: var(--button-bg);
+            /* Cor de fundo do botão. */
+            color: var(--button-text);
+            /* Cor do texto do botão. */
+            border: none;
+            /* Remove a borda do botão. */
+            padding: 8px 12px;
+            /* Preenchimento interno do botão. */
+            border-radius: 20px;
+            /* Borda arredondada para parecer um pílula. */
+            cursor: pointer;
+            /* Muda o cursor para indicar que é clicável. */
+            display: flex;
+            /* Usa Flexbox para alinhar o ícone e o texto. */
+            align-items: center;
+            /* Alinha os itens verticalmente. */
+            justify-content: center;
+            /* Centraliza os itens horizontalmente. */
+            font-size: 1em;
+            /* Tamanho da fonte. */
+            transition: background-color 0.3s, color 0.3s;
+            /* Transição suave para as mudanças de cor. */
+        }
+
+        .dark-mode-button i {
+            /* Estilos para o ícone dentro do botão Dark Mode */
+            margin-right: 5px;
+            /* Margem à direita do ícone para separá-lo do texto. */
+        }
+
+        .dark-mode-button:hover {
+            /* Estilos para o botão Dark Mode quando o mouse passa por cima */
+            opacity: 0.8;
+            /* Reduz a opacidade para dar um efeito de hover. */
+        }
+
+        section {
+            /* Estilos para cada seção de conteúdo da página */
+            background-color: var(--section-bg);
+            /* Cor de fundo da seção. */
+            margin: 20px auto;
+            /* Margem superior/inferior de 20px e centraliza a seção horizontalmente. */
+            padding: 30px;
+            /* Preenchimento interno da seção. */
+            max-width: 900px;
+            /* Largura máxima da seção. */
+            border-radius: 8px;
+            /* Borda arredondada. */
+            box-shadow: 0 0 10px #0000001a;
+            /* Sombra suave ao redor da seção. */
+            line-height: 1.6;
+            /* Espaçamento entre as linhas do texto. */
+            font-size: 1.1em;
+            /* Tamanho da fonte do texto. */
+            text-align: justify;
+            /* Alinha o texto justificado. */
+            text-transform: lowercase;
+            /* Transforma todo o texto da seção em minúsculas (exceto os cabeçalhos H2). */
+        }
+
+        section h2 {
+            /* Estilos para os títulos H2 dentro das seções */
+            color: var(--header-bg);
+            /* Mantém a cor do cabeçalho para destaque. */
+            text-transform: capitalize;
+            /* Transforma a primeira letra de cada palavra em maiúscula (para títulos). */
+            margin-top: 0;
+            /* Remove a margem superior padrão do H2. */
+            margin-bottom: 20px;
+            /* Margem inferior. */
+            font-size: 1.8em;
+            /* Tamanho da fonte. */
+            border-bottom: 2px solid var(--header-bg);
+            /* Borda inferior para sublinhar o título. */
+            padding-bottom: 10px;
+            /* Preenchimento abaixo da borda inferior. */
+        }
+
+        section p {
+            /* Estilos para parágrafos dentro das seções */
+            margin-bottom: 15px;
+            /* Margem inferior para separar parágrafos. */
+        }
+
+        section ul {
+            /* Estilos para listas não ordenadas dentro das seções */
+            list-style-type: disc;
+            /* Define o tipo de marcador da lista como disco. */
+            margin-left: 20px;
+            /* Margem à esquerda para indentar a lista. */
+            margin-bottom: 15px;
+            /* Margem inferior para separar a lista de outros elementos. */
+        }
+
+        section ul li {
+            /* Estilos para cada item da lista dentro das seções */
+            margin-bottom: 8px;
+            /* Margem inferior para separar os itens da lista. */
+        }
+
+        a {
+            /* Estilos gerais para todos os links */
+            color: var(--link-color);
+            /* Cor do link. */
+            text-decoration: none;
+            /* Remove o sublinhado padrão dos links. */
+        }
+
+        a:hover {
+            /* Estilos para links quando o mouse passa por cima */
+            text-decoration: underline;
+            /* Adiciona um sublinhado. */
+        }
+
+        footer {
+            /* Estilos para o rodapé da página */
+            background-color: var(--footer-bg);
+            /* Cor de fundo do rodapé. */
+            color: var(--footer-text);
+            /* Cor do texto do rodapé. */
+            text-align: center;
+            /* Alinha o texto ao centro. */
+            padding: 20px 0;
+            /* Preenchimento interno superior e inferior. */
+            margin-top: 30px;
+            /* Margem superior para separar do conteúdo. */
+            box-shadow: 0 -2px 5px #00000033;
+            /* Adiciona uma sombra suave na parte superior do rodapé. */
+        }
+    </style>
+</head>
+
+<body>
+
+    <header>
+        <h1>MAGNETO: MESTRE DO MAGNETISMO</h1>
+    </header>
+
+    <nav>
+        <ul>
+            <li><a href="#introducao">Introdução</a></li>
+            <li><a href="#História">História</a></li>
+            <li><a href="#Poderes">Poderes & Habilidades</a></li>
+            <li><a href="#Magnetismo">O Magnetismo</a></li>
+            <li><a href="#Curiosidades">Curiosidades</a></li>
+            <li>
+                <button class="dark-mode-button" id="darkModeToggle">
+                    <i class="fas fa-moon"></i> Dark Mode
+                </button>
+            </li>
+        </ul>
+    </nav>
+
+    <section id="introducao">
+        <h2>INTRODUÇÃO</h2>
+        <p> Erik Magnus Lehnsherr, mais conhecido como "Magneto" ou "Mestre do Magnitismo", ( Magnus para os mais
+            íntimos) é um dos personagens mais complexos e icônicos do 'Universo Marvel'. Criado por Stan Lee e Jack
+            Kirby, sua primeira aparição foi em <b>"X-Men" #1</b>, em setembro de 1963. Magneto é um mutante com a
+            incrível habilidade de controlar campos magnéticos, o que lhe confere um poder quase ilimitado sobre metais
+            e energia eletromagnética. Ele é frequentemente retratado como um vilão, um anti-herói e, em certas fases,
+            até um aliado relutante dos X-Men, representando a luta por direitos e sobrevivência dos mutantes de uma
+            forma mais radical e confrontadora do que a filosofia de coexistência pacífica de Charles Xavier.</p>
+        <p> A complexidade de sua personalidade e motivações o torna um dos personagens mais debatidos das HQ's,
+            levantando questões sobre justiça, vingança e o caminho para a paz em meio à opressão.</p>
+    </section>
+
+    <section id="História">
+        <h2> História do início ao fim</h2>
+        <h3> Origens e a tragédia do holocausto</h3>
+        <p> O verdadeiro nome de Magneto é 'Max Eisenhardt'. Ele nasceu em uma família judaica na alemanha no final da
+            década de 1920. Sua infância foi marcada pela ascensão do nazismo e pelo terror do holocausto. Max e sua
+            família foram enviados para o campo de concentração de auschwitz, onde testemunhou a morte de seus entes
+            queridos e sofreu horrores indizíveis. Essa experiência traumática, que o transformou em um sobrevivente de
+            genocídio, moldou profundamente sua visão de mundo e sua desconfiança na humanidade. Ele viu em primeira mão
+            o que a intolerância pode fazer e jurou que os mutantes, uma minoria oprimida, nunca sofreriam o mesmo
+            destino que seu povo.</p>
+        <div style="text-align: center;">
+            <img src="./assets/magneto1.png" alt="" width="50%" height="50%">
+        </div>
+
+        <h3> A amizade com Charles Xavier</h3>
+        <p> Após a guerra, Max, agora conhecido como 'Erik Magnus Lehnsherr', tentou levar uma vida normal. Foi nessa
+            época que ele conheceu: Charles Xavier, um telepata brilhante e também mutante. Eles se tornaram grandes
+            amigos, compartilhando a visão de um futuro onde mutantes e humanos poderiam coexistir. No entanto, suas
+            filosofias divergiam fundamentalmente: Xavier acreditava na integração pacífica e na educação, enquanto
+            Magneto, endurecido por seu passado, defendia a supremacia mutante como a única forma de garantir a
+            sobrevivência de sua espécie, temendo que os humanos sempre se voltassem contra eles.</p>
+        <div style="text-align: center;">
+            <img src="./assets/magneto2.png" alt="" width="50%" height="50%">
+        </div>
+
+        <h3> O nascimento do "vilão" e suas motivações</h3>
+        <p> A ruptura definitiva entre Magneto e Xavier ocorreu quando testemunharam a perseguição a mutantes por parte
+            de humanos. Para Magneto, isso confirmou seus piores medos. ele adotou a identidade de: Magneto, o mestre do
+            magnetismo, e formou a "Irmandade de Mutantes", um grupo de mutantes dispostos a lutar por seus direitos com
+            a força, se necessário. Suas motivações não eram puramente maléficas; ele via suas ações como atos de
+            legítima defesa e um esforço para proteger sua espécie de um extermínio iminente. Ele acredita que, para os
+            mutantes sobreviverem, eles precisam dominar o mundo e impor sua vontade sobre a humanidade, que ele
+            considera inferior e perigosa.</p>
+        <div style="text-align: center;">
+            <img src="./assets/nova-irmandade-demutantes-capa.png" alt="" width="50%" height="50%">
+        </div>
+        <h3> Relações e o conceito de anti-herói</h3>
+        <p> Ao longo de sua história, Magneto teve relações complexas com diversos personagens. Sua rivalidade com
+            Xavier
+            é o cerne de sua existência, uma disputa ideológica que transcende o bem e o mal. Ele também teve filhos,
+            como: Mercúrio (Pietro Maximoff) e a Feiticeira Escarlate (Wanda Maximoff), embora essa relação tenha sido
+            por vezes ambígua nas hqs. Apesar de suas ações muitas vezes violentas, magneto é frequentemente retratado
+            como um Anti-Herói, um personagem que age com métodos questionáveis para alcançar um objetivo que, em sua
+            mente, é justo. Sua luta por uma minoria oprimida ressoa com muitas questões do mundo real sobre
+            discriminação e justiça social.</p>
+        <div style="text-align: center;">
+            <img src="./assets/magnuswanda.png" alt="" width="50%" height="50%">
+        </div>
+    </section>
+
+    <section id="Poderes">
+        <h2>Poderes e Habilidades</h2>
+        <p> Magneto é um mutante de nível ômega, um dos mais poderosos do Universo Marvel. Seus poderes derivam da
+            sua
+            capacidade de manipular campos eletromagnéticos, permitindo-lhe:</p>
+        <ul>
+            <li> Controle sobre o metal: ele pode manipular qualquer tipo de metal, seja ferro, aço, titânio, ou até
+                mesmo os vestígios de metal no sangue (como o ferro na hemoglobina), o que lhe permite controlar
+                pessoas.</li>
+            <li> Voo: ao manipular o campo magnético da terra ou criar seus próprios campos, ele pode voar a grandes
+                velocidades.</li>
+            <li> Geração de campos de força: Pode criar campos de força impenetráveis para se proteger ou a outros
+                de
+                ataques físicos e energéticos.</li>
+            <li> Rajadas eletromagnéticas: Capaz de disparar poderosas rajadas de energia magnética.</li>
+            <li> Manipulação do espectro eletromagnético: Seus poderes se estendem a outras formas de energia
+                eletromagnética, como eletricidade, luz visível e ondas de rádio, embora em menor grau que o
+                magnetismo
+                puro.</li>
+            <li> Percepção eletromagnética: Pode detectar e sentir o campo eletromagnético da terra e outras fontes
+                de
+                energia.</li>
+            <li>Reparos complexos: Com seu controle preciso, ele pode desmontar e remontar máquinas complexas.</li>
+        </ul>
+        <p>Além de seus poderes, magneto é um estrategista brilhante, um líder carismático e um pensador filosófico,
+            o
+            que o torna um adversário formidável.</p>
+
+    </section>
+    <div style="text-align: center;">
+        <img src="./assets/X-Men-97.png" alt="" width="50%" height="50%">
+    </div>
+    <section id="Magnetismo">
+        <h2>O conceito de magnetismo e ciência magnética</h2>
+        <p> O poder de magneto é fundamentado no conceito científico do 'Magnetismo', uma das quatro forças
+            fundamentais
+            da natureza (as outras são a gravidade, a força nuclear forte e a força nuclear fraca). O magnetismo é o
+            fenômeno pelo qual materiais exercem força atrativa ou repulsiva sobre outros materiais ou correntes
+            elétricas. Essa força é mediada por campos magnéticos, que são gerados por cargas elétricas em
+            movimento.
+        </p>
+        <p>Na 'Ciência Magnética', estudamos as propriedades dos materiais magnéticos, como ferromagnetismo
+            (Materiais
+            como ferro, níquel e cobalto que podem ser permanentemente magnetizados), paramagnetismo e
+            diamagnetismo. A
+            física do magnetismo está intrinsecamente ligada à eletricidade, formando o campo do
+            **eletromagnetismo**,
+            que é a base para inúmeras tecnologias modernas, desde motores elétricos e geradores até ressonância
+            magnética (mri) e gravação de dados em discos rígidos.</p>
+        <p>Magneto, em um nível ficcional, tem a capacidade de manipular essas forças fundamentais, o que o torna um
+            dos
+            seres mais poderosos em seu universo, pois o magnetismo permeia tudo, desde o núcleo da terra até os
+            campos
+            gravitacionais de galáxias distantes.</p>
+    </section>
+
+    <div style="text-align: center;">
+        <img src="./assets/campo-geomagnetico.png" alt="" width="50%" height="50%">
+    </div>
+
+    <div class="container-imagem">
+        <img src="https://via.placeholder.com/400x300.png?text=Sua+Imagem+Aqui" alt="Descrição da Imagem"
+            class="imagem-centralizada">
+    </div>
+
+    <section id="Curiosidades">
+        <h2>Curiosidades gerais sobre Magneto</h2>
+        <ul>
+            <li>Nome completo: Erik Magnus Lehnsherr (Anteriormente Max Eisenhardt).</li>
+            <li>Idade: a idade exata é difícil de determinar devido à sua história no holocausto e à "suspensão" da
+                idade em quadrinhos, mas ele é retratado como um homem de meia-idade ou mais velho.</li>
+            <li>Família: teve filhos como pietro maximoff (mercúrio) e wanda maximoff (feiticeira escarlate). também
+                possui uma filha chamada polaris (lorna dane).</li>
+            <li>Ocupação: ativista mutante, líder, terrorista (em certas fases), diretor de escola (ocasionalmente).
+            </li>
+            <li>Tipo de personagem:** vilão, anti-herói, líder mutante.</li>
+            <li>Aparência: cabelos grisalhos, físico atlético, e icônico capacete vermelho (que o protege de ataques
+                telepáticos).</li>
+            <li>Espécie: mutante (homo superior).</li>
+            <li>Nível de poder: mutante ômega.</li>
+            <li>Empresa responsável: Marvel Comics.</li>
+            <li>Década da estreia: década de 1960 (Setembro de 1963).</li>
+            <li>O que ele representa: no mundo fictício, ele representa o lado mais radical da luta mutante por
+                direitos. no mundo real, ele é frequentemente visto como uma alegoria para as minorias oprimidas, a luta
+                contra o preconceito e a discussão sobre os métodos para alcançar a justiça. suas ações como vilão,
+                embora brutais, são impulsionadas por um desejo de proteger seu povo, o que o torna um personagem com
+                profundidade moral ambígua.</li>
+        </ul>
+
+    </section>
+    <div style="text-align: center;">
+        <img src="./assets/magneto-pesadelo.png" alt="" width="50%" height="50%">
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Página sobre Magneto. Todos os direitos reservados. Informações baseadas em Marvel Comics.</p>
+    </footer>
+
+    <script>
+        // Este bloco de script JavaScript é responsável pela funcionalidade do "Dark Mode".
+        document.addEventListener('DOMContentLoaded', () => {
+            // Garante que o script só seja executado após o carregamento completo do DOM.
+
+            const darkModeToggle = document.getElementById('darkModeToggle');
+            // Obtém uma referência ao botão de alternar o Dark Mode usando seu ID.
+            const body = document.body;
+            // Obtém uma referência ao elemento <body> da página.
+
+            darkModeToggle.addEventListener('click', () => {
+                // Adiciona um "ouvinte de evento" (event listener) ao botão.
+                // Quando o botão é clicado, a função dentro será executada.
+
+                body.classList.toggle('dark-mode');
+                // Alterna a classe 'dark-mode' no elemento <body>.
+                // Se a classe estiver presente, ela é removida; se não estiver, ela é adicionada.
+                // Isso ativa/desativa os estilos definidos em 'body.dark-mode' no CSS.
+
+                const isDarkMode = body.classList.contains('dark-mode');
+                // Verifica se o <body> agora tem a classe 'dark-mode' (ou seja, se o dark mode está ativo).
+
+                localStorage.setItem('darkMode', isDarkMode);
+                // Armazena a preferência do usuário (true ou false para dark mode) no Local Storage do navegador.
+                // Isso permite que a preferência seja lembrada mesmo se o usuário fechar e reabrir a página.
+
+                // Troca o ícone e o texto do botão conforme o modo atual.
+                if (isDarkMode) {
+                    darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> light mode';
+                    // Se estiver no modo escuro, exibe o ícone do sol e o texto "light mode".
+                } else {
+                    darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> dark mode';
+                    // Se estiver no modo claro, exibe o ícone da lua e o texto "dark mode".
+                }
+            });
+
+            // Verifica a preferência do usuário ao carregar a página pela primeira vez.
+            const savedDarkMode = localStorage.getItem('darkMode');
+            // Tenta recuperar a preferência de 'darkMode' do Local Storage.
+
+            if (savedDarkMode === 'true') {
+                // Se a preferência salva for 'true' (string, pois Local Storage armazena como string),
+                body.classList.add('dark-mode');
+                // Adiciona a classe 'dark-mode' ao <body> para ativar o tema escuro.
+                darkModeToggle.innerHTML = '<i class="fas fa-sun"></i> light mode';
+                // Atualiza o botão para refletir que o modo escuro está ativo.
+            } else {
+                // Se não houver preferência salva ou se for 'false',
+                darkModeToggle.innerHTML = '<i class="fas fa-moon"></i> dark mode';
+                // Garante que o botão mostre "dark mode" (padrão).
+            }
+        });
+    </script>
+
+</body>
+
+</html>
